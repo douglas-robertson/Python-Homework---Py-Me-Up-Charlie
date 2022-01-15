@@ -18,6 +18,20 @@ li_count = 0
 otooley_count = 0
 khan = []
 candidates = []
+votes = []
+poll_data = []
+
+
+
+with open(election_csv) as csvfile:
+    csvreader = csv.DictReader(csvfile,delimiter = ',')
+
+    for row in csvreader:
+        num_votes += 1
+        
+        if row["Candidate"] not in candidates:
+            candidates.append(row["Candidate"])
+            
 
 with open(election_csv, 'r') as csv_file:
     csv_reader = csv.reader(csv_file, delimiter=",")
@@ -28,15 +42,15 @@ with open(election_csv, 'r') as csv_file:
 #The total number of votes cast
 
     for row in csv_reader:
-        num_votes += 1
+       
 
-        if (row[2] == "Khan"):
+        if (row[2] == candidates[0]):
             khan_count += 1
         
-        elif (row[2] == "Correy"):
+        elif (row[2] == candidates[1]):
             correy_count += 1
 
-        elif (row[2] == "Li"):
+        elif (row[2] == candidates[2]):
             li_count += 1
 
         else:
@@ -60,16 +74,26 @@ else:
     winner = "O'Tooley"
 #print sequence
 
+    #for vote in csv_reader:
+
+        # Create list of first column in CSV
+        #votes.append(vote[0])
+
+        # Create list of third column in CSV
+        #candidates.append(vote[2])
+
+
 print(f"Election Results")
 print("---------------------")
 print (f"Total Votes:  {num_votes}")
 print("---------------------")
-print(f"Khan: {kahn_percentage}% ({khan_count})")
-print(f"Correy: {correy_percentage}% ({correy_count})")
-print(f"Li: {li_percentage}% ({li_count})")
-print(f"O'Tooley: {otooley_percentage}% ({otooley_count})")
+print(f"{candidates[0]}: {kahn_percentage}% ({khan_count})")
+print(f"{candidates[1]}: {correy_percentage}% ({correy_count})")
+print(f"{candidates[2]}: {li_percentage}% ({li_count})")
+print(f"{candidates[3]}: {otooley_percentage}% ({otooley_count})")
 print("---------------------")
 print(f"Winner: {winner}")
+
 #export results to txt file
 
 
@@ -79,10 +103,10 @@ print(f"Election Results")
 print("---------------------")
 print (f"Total Votes:  {num_votes}")
 print("---------------------")
-print(f"Khan: {kahn_percentage}% ({khan_count})")
-print(f"Correy: {correy_percentage}% ({correy_count})")
-print(f"Li: {li_percentage}% ({li_count})")
-print(f"O'Tooley: {otooley_percentage}% ({otooley_count})")
+print(f"{candidates[0]}: {kahn_percentage}% ({khan_count})")
+print(f"{candidates[1]}: {correy_percentage}% ({correy_count})")
+print(f"{candidates[2]}: {li_percentage}% ({li_count})")
+print(f"{candidates[3]}: {otooley_percentage}% ({otooley_count})")
 print("---------------------")
 print(f"Winner: {winner}")
 

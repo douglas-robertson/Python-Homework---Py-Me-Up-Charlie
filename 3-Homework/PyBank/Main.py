@@ -13,7 +13,7 @@ budget_csv = os.path.join( "Resources", "budget_data.csv")
 num_months = 0
 total_profit = 0
 cprofit_change_pmonth = 0
-prior_profit = 867884
+prior_profit = 0
 prior_profit2 = 0
 profit_change_counter = 0
 average_of_PL_changes = 0
@@ -23,16 +23,29 @@ greatest_decrease = 0
 worst_month = "Nan"
 profit = []
 
+
+with open(budget_csv, 'r') as csv_file:
+    csv_reader = csv.reader(csv_file, delimiter=",")
+    #Header value stored and intial profit value set
+    #row counter outside open below due to heads
+    next(csv_reader)
+    for row in csv_reader:
+        num_months += 1
+
 # Open and read csv
 with open(budget_csv, 'r') as csv_file:
     csv_reader = csv.reader(csv_file, delimiter=",")
+    #Header value stored and intial profit value set
+    
     next(csv_reader)
 
+    row = next(csv_reader)
+    prior_profit = int(row[1])
  
   #The total number of months and total profit included in the dataset
 
     for row in csv_reader:
-        num_months += 1
+        #num_months += 1
         total_profit += (int(row[1]))
 
 # Calculate the changes in "Profit/Losses" over the entire period, then find the average of those changes
@@ -40,6 +53,7 @@ with open(budget_csv, 'r') as csv_file:
         prior_profit = int(row[1])
         profit_change_counter += profit_change_pmonth
 
+#profit change calc using less/greater than operators and cycling through
         if profit_change_pmonth >= greatest_increase:
                 greatest_increase = profit_change_pmonth
                 greatest_month = row[0]
@@ -48,7 +62,7 @@ with open(budget_csv, 'r') as csv_file:
                 greatest_decrease = profit_change_pmonth
                 worst_month = row[0]
 
-
+#average calc
 average_of_PL_changes = round((profit_change_counter / num_months),2)
 
 #print sequence
